@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>FinançasSimples | Calculadoras Trabalhistas e Investimentos</title>
+    <meta name="description" content="Ferramentas financeiras gratuitas: Calculadora de Salário Líquido, Comparador CLT vs PJ, Juros Compostos e Décimo Terceiro. Simule e planeje as suas finanças.">
+    <meta name="keywords" content="salário líquido, clt vs pj, juros compostos, décimo terceiro, alíquota progressiva, teto da previdência, provisão de férias, finanças">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="FinançasSimples - Calculadoras Financeiras">
+    <meta property="og:description" content="Simule o seu salário líquido, compare CLT com PJ e calcule juros compostos de forma simples e rápida.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 50: '#f8fafc', 800: '#1e293b' },
+                        emerald: { 500: '#10b981', 600: '#059669' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Schema Markup JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FinançasSimples",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "description": "Conjunto de calculadoras financeiras brasileiras incluindo salário líquido, comparação CLT/PJ e juros compostos."
+    }
+    </script>
+
+    <style>
+        /* Transições suaves para as abas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Estilização da barra de juros compostos */
+        .progress-bar { display: flex; height: 24px; border-radius: 9999px; overflow: hidden; margin-top: 1rem; }
+        .progress-invested { background-color: #3b82f6; }
+        .progress-interest { background-color: #10b981; }
+        
+        /* Esconder scrollbar para navegação mobile limpa */
+        .custom-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-slate-800">
+                Finanças<span class="text-emerald-600">Simples</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- AD: Top Leaderboard -->
+    <div class="max-w-6xl mx-auto px-4 mt-6 w-full hidden md:block">
+        <div class="bg-slate-200 border border-slate-300 w-full h-[90px] flex items-center justify-center text-slate-500 text-sm rounded">
+            Publicidade (728x90) - Inserir Código AdSense Aqui
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 py-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Column: Calculators (2/3 width) -->
+        <div class="lg:col-span-2">
+            
+            <!-- Tabs Navigation -->
+            <nav class="flex overflow-x-auto border-b border-slate-200 mb-6 pb-px custom-scrollbar">
+                <button class="tab-btn active px-4 py-2 font-medium text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap transition-colors" data-target="calc-salario">Salário Líquido</button>
+                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-clt-pj">CLT vs PJ</button>
+                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-juros">Juros Compostos</button>
+                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-13">13º Salário</button>
+            </nav>
+
+            <!-- TAB 1: Salário Líquido -->
+            <section id="calc-salario" class="tab-content active bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold mb-4">Calculadora de Salário Líquido</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Salário Bruto (R$)</label>
+                        <input type="number" id="sl-bruto" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="5000">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Dependentes</label>
+                        <input type="number" id="sl-dependentes" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Outros Descontos (R$)</label>
+                        <input type="number" id="sl-descontos" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Dedução IRRF</label>
+                        <select id="sl-deducao" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow">
+                            <option value="legal">Padrão (Legal)</option>
+                            <option value="simplificada">Simplificada (R$ 564,80)</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="calcularSalarioLiquido()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Calcular Salário Líquido</button>
+                
+                <!-- AD: Below Button -->
+                <div class="bg-slate-200 border border-slate-300 w-full h-[50px] mt-6 flex items-center justify-center text-slate-500 text-sm rounded">
+                    Publicidade - Inserir Código AdSense Aqui
+                </div>
+
+                <div id="sl-resultado" class="mt-6 p-4 bg-slate-50 rounded hidden border border-slate-200">
+                    <!-- Resultados injetados via JS -->
+                </div>
+
+                <!-- SEO Content -->
+                <article class="mt-8 prose prose-slate text-sm text-slate-600">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Como funciona o cálculo do salário líquido?</h3>
+                    <p class="mb-2">O salário líquido é o valor que o trabalhador efetivamente recebe após as deduções legais. O primeiro desconto aplicado é o INSS, que utiliza uma <strong>alíquota progressiva</strong>, ou seja, percentuais diferentes incidem sobre cada faixa do salário, limitados ao <strong>teto da previdência</strong>.</p>
+                    <p>Em seguida, calcula-se o IRRF (Imposto de Renda Retido na Fonte). O contribuinte pode optar pela dedução legal (que considera dependentes e o INSS já descontado) ou pelo desconto simplificado, que substitui todas as deduções por um valor fixo (atualmente R$ 564,80), escolhendo sempre o que for mais vantajoso para reduzir a base de cálculo.</p>
+                </article>
+            </section>
+
+            <!-- TAB 2: CLT vs PJ -->
+            <section id="calc-clt-pj" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold mb-4">Comparador CLT vs PJ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-3 border-b pb-2">Dados CLT</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm mb-1 font-medium">Salário Bruto Mensal (R$)</label>
+                                <input type="number" id="cp-clt-bruto" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="5000">
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-1 font-medium">Benefícios Mensais (VR/VA) (R$)</label>
+                                <input type="number" id="cp-clt-beneficios" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="800">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-3 border-b pb-2">Dados PJ</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm mb-1 font-medium">Faturamento Mensal (R$)</label>
+                                <input type="number" id="cp-pj-faturamento" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="8000">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-sm mb-1 font-medium">Imposto (%)</label>
+                                    <input type="number" id="cp-pj-imposto" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="6" step="0.1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1 font-medium">Contador (R$)</label>
+                                    <input type="number" id="cp-pj-contador" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="250">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="calcularCltPj()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Comparar Modelos</button>
+                
+                <div id="cp-resultado" class="mt-6 hidden">
+                    <!-- Resultados injetados via JS -->
+                </div>
+
+                <!-- SEO Content -->
+                <article class="mt-8 prose prose-slate text-sm text-slate-600">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">CLT ou PJ: Qual vale mais a pena?</h3>
+                    <p class="mb-2">Ao comparar propostas, não olhe apenas para o salário bruto. A CLT garante direitos como 13º salário, <strong>provisão de férias</strong> remuneradas com adicional de 1/3, e depósitos mensais no FGTS. Para comparar de forma justa, mensalizamos estes ganhos "invisíveis" da CLT.</p>
+                    <p>No modelo PJ (Pessoa Jurídica), especialmente no Simples Nacional, o faturamento líquido é o valor bruto subtraído dos impostos da fatura e custos operacionais (como contador). A regra de ouro é que a proposta PJ deve ser entre 30% e 50% maior que o salário bruto CLT para manter o mesmo padrão financeiro e nível de proteção.</p>
+                </article>
+            </section>
+
+            <!-- TAB 3: Juros Compostos -->
+            <section id="calc-juros" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold mb-4">Simulador de Juros Compostos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Valor Inicial (R$)</label>
+                        <input type="number" id="jc-inicial" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="1000">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Aporte Mensal (R$)</label>
+                        <input type="number" id="jc-mensal" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="500">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Taxa de Juros Anual (%)</label>
+                        <input type="number" id="jc-taxa" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="10" step="0.1">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Período (Anos)</label>
+                        <input type="number" id="jc-anos" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="10">
+                    </div>
+                </div>
+                <button onclick="calcularJuros()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Simular Crescimento</button>
+
+                <div id="jc-resultado" class="mt-6 p-4 bg-slate-50 rounded hidden border border-slate-200">
+                    <!-- Resultados injetados via JS -->
+                </div>
+
+                <!-- SEO Content -->
+                <article class="mt-8 prose prose-slate text-sm text-slate-600">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">O poder dos Juros Compostos</h3>
+                    <p class="mb-2">Os juros compostos são juros calculados sobre o valor inicial somado aos juros acumulados de períodos anteriores. É o famoso <strong>efeito bola de neve</strong>, vital para o enriquecimento a longo prazo.</p>
+                    <p>Diferente dos juros simples, onde a taxa incide apenas sobre o capital principal, a capitalização composta faz com que o seu dinheiro trabalhe por si de forma exponencial. Quanto maior o tempo de investimento, mais o montante final será composto por juros ganhos, superando o valor que foi efetivamente retirado do seu bolso.</p>
+                </article>
+            </section>
+
+            <!-- TAB 4: 13º Salário -->
+            <section id="calc-13" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold mb-4">Calculadora de Décimo Terceiro</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Salário Bruto (R$)</label>
+                        <input type="number" id="d13-bruto" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="5000">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Meses Trabalhados no Ano</label>
+                        <input type="number" id="d13-meses" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="12" min="1" max="12">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Dependentes</label>
+                        <input type="number" id="d13-dependentes" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow" value="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Forma de Pagamento</label>
+                        <select id="d13-parcela" class="w-full p-2 border border-slate-300 rounded outline-none focus:ring-2 focus:ring-emerald-500 transition-shadow">
+                            <option value="integral">Integral (Parcela Única)</option>
+                            <option value="primeira">1ª Parcela (Adiantamento)</option>
+                            <option value="segunda">2ª Parcela (Descontos)</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="calcularDecimoTerceiro()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Calcular 13º</button>
+
+                <div id="d13-resultado" class="mt-6 p-4 bg-slate-50 rounded hidden border border-slate-200">
+                    <!-- Resultados injetados via JS -->
+                </div>
+
+                <!-- SEO Content -->
+                <article class="mt-8 prose prose-slate text-sm text-slate-600">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Como é pago o Décimo Terceiro Salário?</h3>
+                    <p class="mb-2">O 13º salário, ou gratificação natalina, é calculado proporcionalmente aos meses trabalhados (uma fração igual ou superior a 15 dias no mês conta como um mês integral).</p>
+                    <p>É geralmente pago em duas parcelas. A <strong>1ª parcela</strong> equivale a 50% do valor bruto proporcional e não sofre descontos. Já a <strong>2ª parcela</strong> concentra todos os descontos (INSS e IRRF) calculados sobre o valor total do 13º, deduzindo-se o valor já adiantado na primeira parcela.</p>
+                </article>
+            </section>
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <aside class="lg:col-span-1 space-y-6">
+            
+            <!-- App Promo Card -->
+            <div class="bg-slate-800 rounded-xl p-6 shadow-lg text-white border border-slate-700 relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500 rounded-full opacity-20 blur-xl"></div>
+                <h3 class="text-xl font-bold mb-2">Controlo Total das Suas Finanças</h3>
+                <p class="text-slate-300 text-sm mb-6">
+                    Alcance as suas metas com o aplicativo <strong>Liberdade Financeira: Ganhos</strong>. Acompanhe os seus recebimentos, simule investimentos e assuma o controlo hoje.
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.rcelebrone.liberdade_financeira&hl=pt_BR" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-3 rounded-lg transition-colors shadow">
+                    Baixar Agora no Google Play
+                </a>
+            </div>
+
+            <!-- AD: Sidebar Square -->
+            <div class="bg-slate-200 border border-slate-300 w-full h-[250px] flex items-center justify-center text-slate-500 text-sm rounded sticky top-24">
+                Publicidade (300x250) - Inserir AdSense
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-6 text-center text-sm mt-auto">
+        <p>&copy; 2026 FinançasSimples. Os cálculos servem como simulação e podem variar conforme convenções coletivas e alterações legais.</p>
+    </footer>
+
+    <!-- Scripts da Lógica Client-Side -->
+    <script>
+        // Formatação de Moeda
+        const formatBRL = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+
+        // Lógica de Abas
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active', 'text-emerald-600', 'border-b-2', 'border-emerald-600');
+                    btn.classList.add('text-slate-500');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active', 'text-emerald-600', 'border-b-2', 'border-emerald-600');
+                button.classList.remove('text-slate-500');
+                document.getElementById(button.dataset.target).classList.add('active');
+            });
+        });
+
+        // Tabelas Tributárias (Base 2024 - Valores Oficiais do Brasil)
+        const inssTabela = [
+            { teto: 1412.00, aliquota: 0.075, deducao: 0 },
+            { teto: 2666.68, aliquota: 0.09, deducao: 21.18 },
+            { teto: 4000.03, aliquota: 0.12, deducao: 101.18 },
+            { teto: 7786.02, aliquota: 0.14, deducao: 181.18 }
+        ];
+        const TETO_INSS = 7786.02;
+        const MAX_INSS_DESC = 908.85;
+
+        const irrfTabela = [
+            { teto: 2259.20, aliquota: 0, deducao: 0 },
+            { teto: 2826.65, aliquota: 0.075, deducao: 169.44 },
+            { teto: 3751.05, aliquota: 0.15, deducao: 381.44 },
+            { teto: 4664.68, aliquota: 0.225, deducao: 662.77 },
+            { teto: Infinity, aliquota: 0.275, deducao: 896.00 }
+        ];
+        const VALOR_DEPENDENTE = 189.59;
+        const DESCONTO_SIMPLIFICADO_IRRF = 564.80;
+
+        function calcularInss(salario) {
+            if (salario <= 0) return 0;
+            if (salario > TETO_INSS) return MAX_INSS_DESC;
+            
+            for (let faixa of inssTabela) {
+                if (salario <= faixa.teto) {
+                    return (salario * faixa.aliquota) - faixa.deducao;
+                }
+            }
+            return MAX_INSS_DESC;
+        }
+
+        function calcularIrrf(baseCalculo) {
+            if (baseCalculo <= 0) return 0;
+            for (let faixa of irrfTabela) {
+                if (baseCalculo <= faixa.teto) {
+                    return (baseCalculo * faixa.aliquota) - faixa.deducao;
+                }
+            }
+            return 0;
+        }
+
+        // 1. Calculadora Salário Líquido
+        function calcularSalarioLiquido() {
+            const bruto = parseFloat(document.getElementById('sl-bruto').value) || 0;
+            const dependentes = parseInt(document.getElementById('sl-dependentes').value) || 0;
+            const outrosDesc = parseFloat(document.getElementById('sl-descontos').value) || 0;
+            const tipoDeducao = document.getElementById('sl-deducao').value;
+
+            const inss = calcularInss(bruto);
+            
+            let baseIrrfLegal = bruto - inss - (dependentes * VALOR_DEPENDENTE);
+            let baseIrrfSimples = bruto - DESCONTO_SIMPLIFICADO_IRRF;
+            
+            let baseIrrf = tipoDeducao === 'simplificada' && baseIrrfSimples < baseIrrfLegal ? baseIrrfSimples : baseIrrfLegal;
+            const irrf = calcularIrrf(baseIrrf);
+            
+            const liquido = bruto - inss - irrf - outrosDesc;
+
+            const html = `
+                <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Salário Bruto:</span> <span class="font-medium text-slate-800">${formatBRL(bruto)}</span></div>
+                <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. INSS:</span> <span class="text-red-500 font-medium">- ${formatBRL(inss)}</span></div>
+                <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. IRRF:</span> <span class="text-red-500 font-medium">- ${formatBRL(irrf)}</span></div>
+                ${outrosDesc > 0 ? `<div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Outros Descontos:</span> <span class="text-red-500 font-medium">- ${formatBRL(outrosDesc)}</span></div>` : ''}
+                <div class="flex justify-between pt-2 text-lg"><span class="font-bold text-slate-800">Salário Líquido:</span> <span class="font-bold text-emerald-600">${formatBRL(liquido)}</span></div>
+            `;
+            const container = document.getElementById('sl-resultado');
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+
+        // 2. Comparador CLT vs PJ
+        function calcularCltPj() {
+            // Entradas CLT
+            const brutoCLT = parseFloat(document.getElementById('cp-clt-bruto').value) || 0;
+            const beneficiosCLT = parseFloat(document.getElementById('cp-clt-beneficios').value) || 0;
+            
+            // Entradas PJ
+            const brutoPJ = parseFloat(document.getElementById('cp-pj-faturamento').value) || 0;
+            const impostoPJ = (parseFloat(document.getElementById('cp-pj-imposto').value) || 0) / 100;
+            const contadorPJ = parseFloat(document.getElementById('cp-pj-contador').value) || 0;
+
+            // Cálculos CLT
+            const inssMensal = calcularInss(brutoCLT);
+            const baseIrrfCLT = brutoCLT - inssMensal;
+            const irrfMensal = calcularIrrf(baseIrrfCLT);
+            const liquidoMensalCLT = brutoCLT - inssMensal - irrfMensal;
+            
+            // Mensalização de ganhos (13º, Férias + 1/3, FGTS)
+            const decimoTerceiroMes = brutoCLT / 12;
+            const feriasMes = (brutoCLT * 1.3333) / 12;
+            const fgtsMes = brutoCLT * 0.08;
+            const valorRealCLTMensal = liquidoMensalCLT + beneficiosCLT + fgtsMes + decimoTerceiroMes + feriasMes;
+
+            // Cálculos PJ
+            const descontoImposto = brutoPJ * impostoPJ;
+            const valorRealPJMensal = brutoPJ - descontoImposto - contadorPJ;
+
+            const dif = Math.abs(valorRealPJMensal - valorRealCLTMensal);
+            const pjGanhou = valorRealPJMensal > valorRealCLTMensal;
+
+            const html = `
+                <div class="bg-white p-4 rounded border ${pjGanhou ? 'border-amber-500' : 'border-emerald-500'} text-center shadow-sm">
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">Veredito</h4>
+                    <p class="text-slate-600 mb-4">A opção <strong>${pjGanhou ? 'PJ' : 'CLT'}</strong> é financeiramente mais vantajosa em <span class="font-bold text-slate-800">${formatBRL(dif)}</span> mensais.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 border-t pt-4">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">Ganho Real Mensalizado CLT</p>
+                            <p class="text-xl font-bold text-emerald-600">${formatBRL(valorRealCLTMensal)}</p>
+                            <p class="text-xs text-slate-400 mt-1">Inclui FGTS, 1/12 de férias e 13º</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">Líquido Real PJ</p>
+                            <p class="text-xl font-bold text-amber-500">${formatBRL(valorRealPJMensal)}</p>
+                            <p class="text-xs text-slate-400 mt-1">Descontados impostos e contador</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const container = document.getElementById('cp-resultado');
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+
+        // 3. Juros Compostos
+        function calcularJuros() {
+            const inicial = parseFloat(document.getElementById('jc-inicial').value) || 0;
+            const mensal = parseFloat(document.getElementById('jc-mensal').value) || 0;
+            const taxaAnual = parseFloat(document.getElementById('jc-taxa').value) || 0;
+            const anos = parseInt(document.getElementById('jc-anos').value) || 0;
+
+            const taxaMensal = Math.pow(1 + (taxaAnual / 100), 1/12) - 1;
+            const meses = anos * 12;
+
+            let montante = inicial;
+            for (let i = 0; i < meses; i++) {
+                montante = (montante * (1 + taxaMensal)) + mensal;
+            }
+
+            const totalInvestido = inicial + (mensal * meses);
+            const jurosGanhos = montante - totalInvestido;
+
+            const pctInvestido = (totalInvestido / montante) * 100;
+            const pctJuros = (jurosGanhos / montante) * 100;
+
+            const html = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-6">
+                    <div class="p-3 bg-white border border-slate-200 rounded">
+                        <p class="text-xs text-slate-500 uppercase">Valor Investido</p>
+                        <p class="text-lg font-bold text-blue-500">${formatBRL(totalInvestido)}</p>
+                    </div>
+                    <div class="p-3 bg-white border border-slate-200 rounded">
+                        <p class="text-xs text-slate-500 uppercase">Juros Ganhos</p>
+                        <p class="text-lg font-bold text-emerald-500">${formatBRL(jurosGanhos)}</p>
+                    </div>
+                    <div class="p-3 bg-white border border-slate-200 rounded">
+                        <p class="text-xs text-slate-500 uppercase">Montante Final</p>
+                        <p class="text-lg font-bold text-slate-800">${formatBRL(montante)}</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-xs text-slate-500 mb-1">
+                        <span>Investimento (${pctInvestido.toFixed(1)}%)</span>
+                        <span>Juros (${pctJuros.toFixed(1)}%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-invested" style="width: ${pctInvestido}%"></div>
+                        <div class="progress-interest" style="width: ${pctJuros}%"></div>
+                    </div>
+                </div>
+            `;
+            const container = document.getElementById('jc-resultado');
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+
+        // 4. Décimo Terceiro
+        function calcularDecimoTerceiro() {
+            const bruto = parseFloat(document.getElementById('d13-bruto').value) || 0;
+            const meses = parseInt(document.getElementById('d13-meses').value) || 12;
+            const dependentes = parseInt(document.getElementById('d13-dependentes').value) || 0;
+            const parcela = document.getElementById('d13-parcela').value;
+
+            const valorProporcional = (bruto / 12) * meses;
+            
+            let html = '';
+
+            if (parcela === 'primeira') {
+                const primeiraParcela = valorProporcional / 2;
+                html = `
+                    <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">13º Proporcional Bruto:</span> <span class="font-medium text-slate-800">${formatBRL(valorProporcional)}</span></div>
+                    <div class="flex justify-between pt-2 text-lg"><span class="font-bold text-slate-800">1ª Parcela (S/ Descontos):</span> <span class="font-bold text-emerald-600">${formatBRL(primeiraParcela)}</span></div>
+                    <p class="text-xs text-slate-500 mt-2">*A primeira parcela é 50% do valor bruto e não sofre retenção de impostos.</p>
+                `;
+            } else {
+                const inss = calcularInss(valorProporcional);
+                let baseIrrfLegal = valorProporcional - inss - (dependentes * VALOR_DEPENDENTE);
+                let baseIrrfSimples = valorProporcional - DESCONTO_SIMPLIFICADO_IRRF;
+                let baseIrrf = Math.min(baseIrrfLegal, baseIrrfSimples);
+                const irrf = calcularIrrf(baseIrrf);
+                
+                const valorLiquidoTotal = valorProporcional - inss - irrf;
+
+                if (parcela === 'segunda') {
+                    const adiantado = valorProporcional / 2;
+                    const segundaParcela = valorLiquidoTotal - adiantado;
+                    
+                    html = `
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">13º Proporcional Bruto:</span> <span class="font-medium text-slate-800">${formatBRL(valorProporcional)}</span></div>
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">1ª Parcela Adiantada:</span> <span class="text-red-500 font-medium">- ${formatBRL(adiantado)}</span></div>
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. INSS (Total):</span> <span class="text-red-500 font-medium">- ${formatBRL(inss)}</span></div>
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. IRRF (Total):</span> <span class="text-red-500 font-medium">- ${formatBRL(irrf)}</span></div>
+                        <div class="flex justify-between pt-2 text-lg"><span class="font-bold text-slate-800">Valor da 2ª Parcela:</span> <span class="font-bold text-emerald-600">${formatBRL(segundaParcela)}</span></div>
+                    `;
+                } else {
+                    // Integral
+                    html = `
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">13º Proporcional Bruto:</span> <span class="font-medium text-slate-800">${formatBRL(valorProporcional)}</span></div>
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. INSS:</span> <span class="text-red-500 font-medium">- ${formatBRL(inss)}</span></div>
+                        <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. IRRF:</span> <span class="text-red-500 font-medium">- ${formatBRL(irrf)}</span></div>
+                        <div class="flex justify-between pt-2 text-lg"><span class="font-bold text-slate-800">13º Líquido Integral:</span> <span class="font-bold text-emerald-600">${formatBRL(valorLiquidoTotal)}</span></div>
+                    `;
+                }
+            }
+
+            const container = document.getElementById('d13-resultado');
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
