@@ -7,12 +7,12 @@
     
     <!-- SEO Meta Tags -->
     <title>FinançasSimples | Calculadoras Trabalhistas e Investimentos</title>
-    <meta name="description" content="Ferramentas financeiras gratuitas: Calculadora de Salário Líquido, Comparador CLT vs PJ, Juros Compostos e Décimo Terceiro. Simule e planeje as suas finanças.">
-    <meta name="keywords" content="salário líquido, clt vs pj, juros compostos, décimo terceiro, alíquota progressiva, teto da previdência, provisão de férias, finanças">
+    <meta name="description" content="Ferramentas financeiras gratuitas: Calculadora de Salário Líquido, Comparador CLT vs PJ, Juros Compostos, Décimo Terceiro e Rescisão CLT. Simule e planeje as suas finanças.">
+    <meta name="keywords" content="salário líquido, clt vs pj, juros compostos, décimo terceiro, rescisão clt, aviso prévio, multa fgts, alíquota progressiva, teto da previdência, provisão de férias, finanças">
     
     <!-- Open Graph -->
     <meta property="og:title" content="FinançasSimples - Calculadoras Financeiras">
-    <meta property="og:description" content="Simule o seu salário líquido, compare CLT com PJ e calcule juros compostos de forma simples e rápida.">
+    <meta property="og:description" content="Simule o seu salário líquido, compare CLT com PJ, simule juros compostos e calcule sua rescisão CLT de forma simples e rápida.">
     <meta property="og:type" content="website">
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9278274121196072"
@@ -46,7 +46,7 @@
         "price": "0",
         "priceCurrency": "BRL"
       },
-      "description": "Conjunto de calculadoras financeiras brasileiras incluindo salário líquido, comparação CLT/PJ e juros compostos."
+      "description": "Conjunto de calculadoras financeiras brasileiras incluindo salário líquido, comparação CLT/PJ, rescisão contratual CLT e juros compostos."
     }
     </script>
 
@@ -77,20 +77,20 @@
         </div>
     </header>
 
-    <!-- AD: Top Leaderboard -->
-    <div class="max-w-6xl mx-auto px-4 mt-6 w-full">
-        <div class="bg-slate-200 border border-slate-300 w-full min-h-[90px] block text-center text-slate-500 text-sm rounded">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9278274121196072"
-                 crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                 style="display:block; width:100%;"
-                 data-ad-client="ca-pub-9278274121196072"
-                 data-ad-slot="7035285396"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+    <!-- AD: Top Leaderboard (Fixed dimensions to prevent Layout Shift) -->
+    <div class="max-w-6xl mx-auto px-4 mt-6 w-full flex justify-center">
+        <div class="bg-slate-200 border border-slate-300 w-[320px] sm:w-[468px] md:w-[728px] h-[100px] sm:h-[60px] md:h-[90px] flex items-center justify-center text-center text-slate-500 text-xs rounded overflow-hidden shadow-sm">
+            <div class="w-full">
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; height:100%;"
+                     data-ad-client="ca-pub-9278274121196072"
+                     data-ad-slot="7035285396"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
 
@@ -100,13 +100,31 @@
         <!-- Left Column: Calculators (2/3 width) -->
         <div class="lg:col-span-2">
             
-            <!-- Tabs Navigation -->
-            <nav class="flex overflow-x-auto border-b border-slate-200 mb-6 pb-px custom-scrollbar">
-                <button class="tab-btn active px-4 py-2 font-medium text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap transition-colors" data-target="calc-salario">Salário Líquido</button>
-                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-clt-pj">CLT vs PJ</button>
-                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-juros">Juros Compostos</button>
-                <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-13">13º Salário</button>
-            </nav>
+            <!-- Tabs Navigation wrapper with Arrows -->
+            <div class="relative flex items-center border-b border-slate-200 mb-6 bg-white rounded-lg p-1 shadow-sm">
+                <!-- Left Scroll Arrow -->
+                <button id="scroll-left-btn" class="absolute left-1 z-10 bg-white hover:bg-slate-50 text-slate-600 hover:text-emerald-600 p-1.5 rounded-full shadow-md border border-slate-200 transition-all focus:outline-none flex items-center justify-center opacity-0 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Scrollable Tab Container -->
+                <nav id="tabs-container" class="flex overflow-x-auto scroll-smooth w-full py-1 px-8 space-x-1 custom-scrollbar">
+                    <button class="tab-btn active px-4 py-2 font-medium text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap transition-colors" data-target="calc-salario">Salário Líquido</button>
+                    <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-clt-pj">CLT vs PJ</button>
+                    <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-rescisao">Rescisão CLT</button>
+                    <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-juros">Juros Compostos</button>
+                    <button class="tab-btn px-4 py-2 font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap transition-colors" data-target="calc-13">13º Salário</button>
+                </nav>
+
+                <!-- Right Scroll Arrow -->
+                <button id="scroll-right-btn" class="absolute right-1 z-10 bg-white hover:bg-slate-50 text-slate-600 hover:text-emerald-600 p-1.5 rounded-full shadow-md border border-slate-200 transition-all focus:outline-none flex items-center justify-center opacity-0 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
 
             <!-- TAB 1: Salário Líquido -->
             <section id="calc-salario" class="tab-content active bg-white p-6 rounded-lg shadow-sm border border-slate-200">
@@ -134,19 +152,21 @@
                 </div>
                 <button onclick="calcularSalarioLiquido()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Calcular Salário Líquido</button>
                 
-                <!-- AD: Below Button -->
-                <div class="bg-slate-200 border border-slate-300 w-full min-h-[50px] mt-6 block text-center text-slate-500 text-sm rounded">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9278274121196072"
-                         crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block; width:100%;"
-                         data-ad-client="ca-pub-9278274121196072"
-                         data-ad-slot="8429056875"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                <!-- AD: Below Button (Fixed dimensions to prevent Layout Shift) -->
+                <div class="w-full flex justify-center mt-6">
+                    <div class="bg-slate-200 border border-slate-300 w-[320px] sm:w-[468px] md:w-[728px] h-[100px] sm:h-[60px] md:h-[90px] flex items-center justify-center text-center text-slate-500 text-xs rounded overflow-hidden shadow-sm">
+                        <div class="w-full">
+                            <ins class="adsbygoogle"
+                                 style="display:block; width:100%; height:100%;"
+                                 data-ad-client="ca-pub-9278274121196072"
+                                 data-ad-slot="8429056875"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="sl-resultado" class="mt-6 p-4 bg-slate-50 rounded hidden border border-slate-200">
@@ -212,7 +232,78 @@
                 </article>
             </section>
 
-            <!-- TAB 3: Juros Compostos -->
+            <!-- TAB 3: Rescisão CLT -->
+            <section id="calc-rescisao" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold mb-4">Calculadora de Rescisão de Contrato CLT</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Salário Bruto (R$)</label>
+                        <input type="number" id="res-bruto" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="5000" oninput="estimarFgts()">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Motivo da Rescisão</label>
+                        <select id="res-motivo" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" onchange="atualizarOpcoesAviso()">
+                            <option value="sem_justa_empregador">Demissão sem justa causa (pelo empregador)</option>
+                            <option value="com_justa_empregador">Demissão com justa causa (pelo empregador)</option>
+                            <option value="pedido_empregado">Pedido de demissão (pelo empregado)</option>
+                            <option value="acordo">Acordo comum (Art. 484-A da CLT)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Data de Admissão</label>
+                        <input type="date" id="res-admissao" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="2024-01-01" onchange="estimarFgts()">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Data do Último Dia Trabalhado</label>
+                        <input type="date" id="res-demissao" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="2024-12-31" onchange="estimarFgts()">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Aviso Prévio</label>
+                        <select id="res-aviso" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow">
+                            <!-- Injetado dinamicamente via JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Possui Férias Vencidas?</label>
+                        <select id="res-ferias-vencidas" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow">
+                            <option value="0">Não possui</option>
+                            <option value="1">Sim, 1 período (30 dias)</option>
+                            <option value="2">Sim, 2 períodos (60 dias)</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-sm font-medium">Saldo Atual de FGTS (Para cálculo de Multa)</label>
+                            <button type="button" onclick="estimarFgts(true)" class="text-xs text-emerald-600 hover:text-emerald-700 font-semibold focus:outline-none">Recalcular Estimação</button>
+                        </div>
+                        <input type="number" id="res-fgts" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow" value="0">
+                        <p class="text-[11px] text-slate-500 mt-1">Este valor é calculado automaticamente em 8% do salário ao mês, mas você pode editá-lo caso saiba o valor real do seu extrato.</p>
+                    </div>
+                </div>
+
+                <button onclick="calcularRescisao()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded transition-colors shadow-sm">Calcular Acerto Rescisório</button>
+
+                <div id="res-resultado" class="mt-6 p-4 bg-slate-50 rounded hidden border border-slate-200">
+                    <!-- Resultados injetados via JS -->
+                </div>
+
+                <!-- SEO Content -->
+                <article class="mt-8 prose prose-slate text-sm text-slate-600">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Quais verbas compõem a rescisão CLT?</h3>
+                    <p class="mb-2">A rescisão trabalhista é composta por diferentes direitos, dependendo diretamente da modalidade de dispensa do trabalhador:</p>
+                    <ul class="list-disc pl-5 space-y-1 mb-4">
+                        <li><strong>Saldo de Salário:</strong> Pagamento referente aos dias trabalhados no mês do encerramento do contrato.</li>
+                        <li><strong>Aviso Prévio Indenizado:</strong> Valor correspondente ao salário de um período de aviso que a empresa opta por dispensar o cumprimento físico (mínimo de 30 dias + 3 dias adicionais por ano completo na empresa).</li>
+                        <li><strong>Décimo Terceiro Proporcional:</strong> Frações de 1/12 do 13º salário anual equivalentes aos meses em que trabalhou mais de 14 dias no ano corrente.</li>
+                        <li><strong>Férias Proporcionais + 1/3:</strong> Equivalente a 1/12 do período de férias por mês trabalhado no período aquisitivo atual, acrescidas de 1/3 constitucional.</li>
+                        <li><strong>Férias Vencidas:</strong> Caso o empregado já tenha adquirido o direito a férias em períodos anteriores e não as tenha gozado, recebe o pagamento integral acrescido de 1/3.</li>
+                        <li><strong>Multa sobre o saldo do FGTS:</strong> Multa rescisória de 40% (ou de 20% no caso de acordo consensual) depositada pelo empregador sobre o montante acumulado na conta do fundo de garantia do trabalhador.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- TAB 4: Juros Compostos -->
             <section id="calc-juros" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                 <h2 class="text-xl font-bold mb-4">Simulador de Juros Compostos</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -247,7 +338,7 @@
                 </article>
             </section>
 
-            <!-- TAB 4: 13º Salário -->
+            <!-- TAB 5: 13º Salário -->
             <section id="calc-13" class="tab-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                 <h2 class="text-xl font-bold mb-4">Calculadora de Décimo Terceiro</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -281,7 +372,7 @@
                 <!-- SEO Content -->
                 <article class="mt-8 prose prose-slate text-sm text-slate-600">
                     <h3 class="text-lg font-semibold text-slate-800 mb-2">Como é pago o Décimo Terceiro Salário?</h3>
-                    <p class="mb-2">O 13º salário, ou gratificação natalina, é calculado proporcionalmente aos meses trabalhados (uma fração igual ou superior a 15 dias no mês conta como um mês integral).</p>
+                    <p class="mb-2">O 13º salário, ou gratificação natalina, é calculated proporcionalmente aos meses trabalhados (uma fração igual ou superior a 15 dias no mês conta como um mês integral).</p>
                     <p>É geralmente pago em duas parcelas. A <strong>1ª parcela</strong> equivale a 50% do valor bruto proporcional e não sofre descontos. Já a <strong>2ª parcela</strong> concentra todos os descontos (INSS e IRRF) calculados sobre o valor total do 13º, deduzindo-se o valor já adiantado na primeira parcela.</p>
                 </article>
             </section>
@@ -302,18 +393,19 @@
                 </a>
             </div>
 
-            <!-- AD: Sidebar Square -->
-            <div class="bg-slate-200 border border-slate-300 w-full min-h-[250px] block text-center text-slate-500 text-sm rounded sticky top-24">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9278274121196072"
-                     crossorigin="anonymous"></script>
-                <ins class="adsbygoogle"
-                     style="display:block; width:100%;"
-                     data-ad-format="autorelaxed"
-                     data-ad-client="ca-pub-9278274121196072"
-                     data-ad-slot="1232294376"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+            <!-- AD: Sidebar Square (Fixed strictly to 300x250) -->
+            <div class="flex justify-center w-full">
+                <div class="bg-slate-200 border border-slate-300 w-[300px] h-[250px] flex items-center justify-center text-center text-slate-500 text-sm rounded sticky top-24 overflow-hidden shadow-sm">
+                    <div class="w-[300px] h-[250px]">
+                        <ins class="adsbygoogle"
+                             style="display:inline-block; width:300px; height:250px;"
+                             data-ad-client="ca-pub-9278274121196072"
+                             data-ad-slot="1232294376"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
             </div>
         </aside>
     </main>
@@ -343,6 +435,53 @@
             });
         });
 
+        // --- SISTEMA DE ROLAGEM E SETAS DO CONTÊINER DE TABS ---
+        const tabsContainer = document.getElementById('tabs-container');
+        const scrollLeftBtn = document.getElementById('scroll-left-btn');
+        const scrollRightBtn = document.getElementById('scroll-right-btn');
+
+        function updateTabScrollButtons() {
+            const hasOverflow = tabsContainer.scrollWidth > tabsContainer.clientWidth;
+            if (!hasOverflow) {
+                scrollLeftBtn.classList.add('hidden');
+                scrollRightBtn.classList.add('hidden');
+                return;
+            }
+
+            scrollLeftBtn.classList.remove('hidden');
+            scrollRightBtn.classList.remove('hidden');
+
+            // Set esquerda
+            if (tabsContainer.scrollLeft <= 10) {
+                scrollLeftBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollLeftBtn.classList.remove('opacity-100');
+            } else {
+                scrollLeftBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollLeftBtn.classList.add('opacity-100');
+            }
+
+            // Set direita
+            const maxScrollLeft = tabsContainer.scrollWidth - tabsContainer.clientWidth;
+            if (tabsContainer.scrollLeft >= maxScrollLeft - 10) {
+                scrollRightBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollRightBtn.classList.remove('opacity-100');
+            } else {
+                scrollRightBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollRightBtn.classList.add('opacity-100');
+            }
+        }
+
+        scrollLeftBtn.addEventListener('click', () => {
+            tabsContainer.scrollBy({ left: -180, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            tabsContainer.scrollBy({ left: 180, behavior: 'smooth' });
+        });
+
+        tabsContainer.addEventListener('scroll', updateTabScrollButtons);
+        window.addEventListener('resize', updateTabScrollButtons);
+
         // Tabelas Tributárias (Base 2024 - Valores Oficiais do Brasil)
         const inssTabela = [
             { teto: 1412.00, aliquota: 0.075, deducao: 0 },
@@ -367,9 +506,17 @@
             if (salario <= 0) return 0;
             if (salario > TETO_INSS) return MAX_INSS_DESC;
             
-            for (let faixa of inssTabela) {
-                if (salario <= faixa.teto) {
-                    return (salario * faixa.aliquota) - faixa.deducao;
+            let desconto = 0;
+            let faixaAnterior = 0;
+            
+            for (let i = 0; i < inssTabela.length; i++) {
+                let faixa = inssTabela[i];
+                if (salario > faixa.teto) {
+                    desconto += (faixa.teto - faixaAnterior) * faixa.aliquota;
+                    faixaAnterior = faixa.teto;
+                } else {
+                    desconto += (salario - faixaAnterior) * faixa.aliquota;
+                    return Math.round(desconto * 100) / 100;
                 }
             }
             return MAX_INSS_DESC;
@@ -398,7 +545,7 @@
             let baseIrrfSimples = bruto - DESCONTO_SIMPLIFICADO_IRRF;
             
             let baseIrrf = tipoDeducao === 'simplificada' && baseIrrfSimples < baseIrrfLegal ? baseIrrfSimples : baseIrrfLegal;
-            const irrf = calcularIrrf(baseIrrf);
+            const irrf = Math.max(0, calcularIrrf(baseIrrf));
             
             const liquido = bruto - inss - irrf - outrosDesc;
 
@@ -416,28 +563,23 @@
 
         // 2. Comparador CLT vs PJ
         function calcularCltPj() {
-            // Entradas CLT
             const brutoCLT = parseFloat(document.getElementById('cp-clt-bruto').value) || 0;
             const beneficiosCLT = parseFloat(document.getElementById('cp-clt-beneficios').value) || 0;
             
-            // Entradas PJ
             const brutoPJ = parseFloat(document.getElementById('cp-pj-faturamento').value) || 0;
             const impostoPJ = (parseFloat(document.getElementById('cp-pj-imposto').value) || 0) / 100;
             const contadorPJ = parseFloat(document.getElementById('cp-pj-contador').value) || 0;
 
-            // Cálculos CLT
             const inssMensal = calcularInss(brutoCLT);
             const baseIrrfCLT = brutoCLT - inssMensal;
-            const irrfMensal = calcularIrrf(baseIrrfCLT);
+            const irrfMensal = Math.max(0, calcularIrrf(baseIrrfCLT));
             const liquidoMensalCLT = brutoCLT - inssMensal - irrfMensal;
             
-            // Mensalização de ganhos (13º, Férias + 1/3, FGTS)
             const decimoTerceiroMes = brutoCLT / 12;
             const feriasMes = (brutoCLT * 1.3333) / 12;
             const fgtsMes = brutoCLT * 0.08;
             const valorRealCLTMensal = liquidoMensalCLT + beneficiosCLT + fgtsMes + decimoTerceiroMes + feriasMes;
 
-            // Cálculos PJ
             const descontoImposto = brutoPJ * impostoPJ;
             const valorRealPJMensal = brutoPJ - descontoImposto - contadorPJ;
 
@@ -445,7 +587,7 @@
             const pjGanhou = valorRealPJMensal > valorRealCLTMensal;
 
             const html = `
-                <div class="bg-white p-4 rounded border ${pjGanhou ? 'border-amber-500' : 'border-emerald-500'} text-center shadow-sm">
+                <div class="bg-white p-4 rounded border ${pjGanhou ? 'border-blue-500' : 'border-emerald-500'} text-center shadow-sm">
                     <h4 class="text-lg font-bold text-slate-800 mb-2">Veredito</h4>
                     <p class="text-slate-600 mb-4">A opção <strong>${pjGanhou ? 'PJ' : 'CLT'}</strong> é financeiramente mais vantajosa em <span class="font-bold text-slate-800">${formatBRL(dif)}</span> mensais.</p>
                     
@@ -457,7 +599,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wide">Líquido Real PJ</p>
-                            <p class="text-xl font-bold text-amber-500">${formatBRL(valorRealPJMensal)}</p>
+                            <p class="text-xl font-bold text-blue-500">${formatBRL(valorRealPJMensal)}</p>
                             <p class="text-xs text-slate-400 mt-1">Descontados impostos e contador</p>
                         </div>
                     </div>
@@ -543,7 +685,7 @@
                 let baseIrrfLegal = valorProporcional - inss - (dependentes * VALOR_DEPENDENTE);
                 let baseIrrfSimples = valorProporcional - DESCONTO_SIMPLIFICADO_IRRF;
                 let baseIrrf = Math.min(baseIrrfLegal, baseIrrfSimples);
-                const irrf = calcularIrrf(baseIrrf);
+                const irrf = Math.max(0, calcularIrrf(baseIrrf));
                 
                 const valorLiquidoTotal = valorProporcional - inss - irrf;
 
@@ -559,7 +701,6 @@
                         <div class="flex justify-between pt-2 text-lg"><span class="font-bold text-slate-800">Valor da 2ª Parcela:</span> <span class="font-bold text-emerald-600">${formatBRL(segundaParcela)}</span></div>
                     `;
                 } else {
-                    // Integral
                     html = `
                         <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">13º Proporcional Bruto:</span> <span class="font-medium text-slate-800">${formatBRL(valorProporcional)}</span></div>
                         <div class="flex justify-between border-b pb-2 mb-2"><span class="text-slate-600">Desc. INSS:</span> <span class="text-red-500 font-medium">- ${formatBRL(inss)}</span></div>
@@ -572,6 +713,313 @@
             const container = document.getElementById('d13-resultado');
             container.innerHTML = html;
             container.classList.remove('hidden');
+        }
+
+        // --- MÓDULO EXCLUSIVO: CALCULADORA DE RESCISÃO CLT ---
+
+        function atualizarOpcoesAviso() {
+            const motivo = document.getElementById('res-motivo').value;
+            const avisoSelect = document.getElementById('res-aviso');
+            avisoSelect.innerHTML = '';
+            
+            if (motivo === 'sem_justa_empregador') {
+                avisoSelect.innerHTML = `
+                    <option value="indenizado">Indenizado pelo Empregador</option>
+                    <option value="trabalhado">Trabalhado (Aviso cumprido)</option>
+                `;
+            } else if (motivo === 'com_justa_empregador') {
+                avisoSelect.innerHTML = `
+                    <option value="nao_se_aplica">Não se aplica</option>
+                `;
+            } else if (motivo === 'pedido_empregado') {
+                avisoSelect.innerHTML = `
+                    <option value="trabalhado">Trabalhado (Cumprido pelo empregado)</option>
+                    <option value="dispensado">Dispensado (Não trabalhado / Sem desconto)</option>
+                    <option value="nao_cumprido">Não Cumprido (Descontado do trabalhador)</option>
+                `;
+            } else if (motivo === 'acordo') {
+                avisoSelect.innerHTML = `
+                    <option value="indenizado_50">Indenizado (Pago a 50%)</option>
+                    <option value="trabalhado">Trabalhado</option>
+                `;
+            }
+        }
+
+        function estimarFgts(forcar = false) {
+            const admVal = document.getElementById('res-admissao').value;
+            const demVal = document.getElementById('res-demissao').value;
+            if (!admVal || !demVal) return;
+            
+            const admissao = new Date(admVal + 'T12:00:00');
+            const demissao = new Date(demVal + 'T12:00:00');
+            if (demissao < admissao) return;
+            
+            const bruto = parseFloat(document.getElementById('res-bruto').value) || 0;
+            const diffTime = demissao - admissao;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const meses = Math.max(1, Math.floor(diffDays / 30.44));
+            
+            const fgtsEstimado = Math.round(bruto * 0.08 * meses * 100) / 100;
+            const fgtsInput = document.getElementById('res-fgts');
+            if (forcar || parseFloat(fgtsInput.value) === 0 || fgtsInput.value === "") {
+                fgtsInput.value = fgtsEstimado;
+            }
+        }
+
+        function calcularRescisao() {
+            const admVal = document.getElementById('res-admissao').value;
+            const demVal = document.getElementById('res-demissao').value;
+            const container = document.getElementById('res-resultado');
+            
+            if (!admVal || !demVal) {
+                container.innerHTML = `<p class="text-red-500 font-medium">Por favor, insira datas válidas.</p>`;
+                container.classList.remove('hidden');
+                return;
+            }
+
+            const admissao = new Date(admVal + 'T12:00:00');
+            const demissao = new Date(demVal + 'T12:00:00');
+
+            if (demissao < admissao) {
+                container.innerHTML = `<p class="text-red-500 font-medium">A data de demissão não pode ser anterior à data de admissão.</p>`;
+                container.classList.remove('hidden');
+                return;
+            }
+
+            const bruto = parseFloat(document.getElementById('res-bruto').value) || 0;
+            const motivo = document.getElementById('res-motivo').value;
+            const aviso = document.getElementById('res-aviso').value;
+            const feriasVencidasPeriodos = parseInt(document.getElementById('res-ferias-vencidas').value) || 0;
+            const saldoFgts = parseFloat(document.getElementById('res-fgts').value) || 0;
+
+            const diffTime = demissao - admissao;
+            const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const anosCompletos = Math.floor(totalDays / 365.25);
+
+            // Aviso Prévio Proporcional (Lei 12.506/11): 30 dias base + 3 dias por ano completo, max 90 dias
+            let diasAvisoPrevio = 30;
+            if (anosCompletos > 0) {
+                diasAvisoPrevio += anosCompletos * 3;
+            }
+            if (diasAvisoPrevio > 90) diasAvisoPrevio = 90;
+
+            // Saldo de Salário (Dias do mês final de trabalho)
+            const diasNoMesDemissao = new Date(demissao.getFullYear(), demissao.getMonth() + 1, 0).getDate();
+            const diasTrabalhados = demissao.getDate();
+            const saldoSalario = (bruto / diasNoMesDemissao) * diasTrabalhados;
+
+            // Aviso Prévio Recebido / Pago / Descontado
+            let avisoPrevioRecebido = 0;
+            let avisoPrevioDescontado = 0;
+
+            if (motivo === 'sem_justa_empregador' && aviso === 'indenizado') {
+                avisoPrevioRecebido = (bruto / 30) * diasAvisoPrevio;
+            } else if (motivo === 'acordo' && aviso === 'indenizado_50') {
+                avisoPrevioRecebido = (bruto / 30) * diasAvisoPrevio * 0.5;
+            } else if (motivo === 'pedido_empregado' && aviso === 'nao_cumprido') {
+                avisoPrevioDescontado = bruto; // Empresa desconta 30 dias de aviso
+            }
+
+            // Projeção do aviso prévio indenizado para cálculo de 13º e férias proporcionais
+            let diasProjetados = 0;
+            if (aviso === 'indenizado' || aviso === 'indenizado_50') {
+                diasProjetados = diasAvisoPrevio;
+            }
+            
+            const dataProjetada = new Date(demissao);
+            dataProjetada.setDate(dataProjetada.getDate() + diasProjetados);
+
+            // Cálculo exato de meses proporcionais de 13º Salário no ano final (considerando projeção)
+            const inicioAnoRescisao = new Date(dataProjetada.getFullYear(), 0, 1);
+            const dataInicioCalc13 = admissao > inicioAnoRescisao ? admissao : inicioAnoRescisao;
+            
+            let meses13 = 0;
+            const anoInicio = dataInicioCalc13.getFullYear();
+            const anoFim = dataProjetada.getFullYear();
+
+            for (let y = anoInicio; y <= anoFim; y++) {
+                let mStart = (y === anoInicio) ? dataInicioCalc13.getMonth() : 0;
+                let mEnd = (y === anoFim) ? dataProjetada.getMonth() : 11;
+
+                for (let m = mStart; m <= mEnd; m++) {
+                    let ultDiaMes = new Date(y, m + 1, 0).getDate();
+                    let dStart = (y === anoInicio && m === mStart) ? dataInicioCalc13.getDate() : 1;
+                    let dEnd = (y === anoFim && m === mEnd) ? dataProjetada.getDate() : ultDiaMes;
+                    
+                    let diasContados = dEnd - dStart + 1;
+                    if (diasContados >= 15) {
+                        meses13++;
+                    }
+                }
+            }
+            // 13º é anualizado, limitando a 12 meses do ano corrente
+            if (meses13 > 12) meses13 = 12;
+
+            let valor13Proporcional = 0;
+            if (motivo !== 'com_justa_empregador') {
+                valor13Proporcional = (bruto / 12) * meses13;
+            }
+
+            // Férias Proporcionais (Aniversário de contratação até data projetada de encerramento)
+            let tempAniversario = new Date(admissao);
+            while (true) {
+                let proxAniv = new Date(tempAniversario);
+                proxAniv.setFullYear(proxAniv.getFullYear() + 1);
+                if (proxAniv <= dataProjetada) {
+                    tempAniversario = proxAniv;
+                } else {
+                    break;
+                }
+            }
+
+            let diffMsUltimoPeriodo = dataProjetada - tempAniversario;
+            let totalDiasUltPeriodo = Math.floor(diffMsUltimoPeriodo / (1000 * 60 * 60 * 24));
+            
+            let mesesFeriasProporcionais = Math.floor(totalDiasUltPeriodo / 30);
+            let restoDiasFerias = totalDiasUltPeriodo % 30;
+            if (restoDiasFerias >= 15) {
+                mesesFeriasProporcionais += 1;
+            }
+            if (mesesFeriasProporcionais > 12) mesesFeriasProporcionais = 12;
+
+            let feriasProporcionais = 0;
+            let terçoFeriasProporcionais = 0;
+
+            if (motivo !== 'com_justa_empregador') {
+                feriasProporcionais = (bruto / 12) * mesesFeriasProporcionais;
+                terçoFeriasProporcionais = feriasProporcionais / 3;
+            }
+
+            // Férias Vencidas (Adquiridas anteriormente e ainda não gozadas)
+            const feriasVencidas = bruto * feriasVencidasPeriodos;
+            const terçoFeriasVencidas = feriasVencidas / 3;
+
+            // --- TRIBUTAÇÃO E DEDUÇÕES ---
+            // INSS sobre Saldo de Salário
+            const inssSaldo = calcularInss(saldoSalario);
+            // IRRF sobre Saldo de Salário
+            const baseIrrfSaldo = Math.max(0, saldoSalario - inssSaldo);
+            const irrfSaldo = Math.max(0, calcularIrrf(baseIrrfSaldo));
+
+            // INSS sobre 13º Salário
+            const inss13 = calcularInss(valor13Proporcional);
+            // IRRF sobre 13º Salário
+            const baseIrrf13 = Math.max(0, valor13Proporcional - inss13);
+            const irrf13 = Math.max(0, calcularIrrf(baseIrrf13));
+
+            // Férias, terço constitucional e aviso prévio indenizado não sofrem deduções previdenciárias ou fiscais diretas.
+
+            // --- TOTAIS ---
+            const totalProventos = saldoSalario + avisoPrevioRecebido + valor13Proporcional + feriasProporcionais + terçoFeriasProporcionais + feriasVencidas + terçoFeriasVencidas;
+            const totalDescontos = inssSaldo + irrfSaldo + inss13 + irrf13 + avisoPrevioDescontado;
+            const totalLiquido = totalProventos - totalDescontos;
+
+            // --- MULTA E SAQUE FGTS ---
+            let taxaMulta = 0;
+            let saqueLiberado = false;
+            let valorSaqueEstimado = 0;
+
+            if (motivo === 'sem_justa_empregador') {
+                taxaMulta = 0.40;
+                saqueLiberado = true;
+            } else if (motivo === 'acordo') {
+                taxaMulta = 0.20;
+                saqueLiberado = true;
+            }
+
+            const multaFgts = saldoFgts * taxaMulta;
+            
+            if (saqueLiberado) {
+                if (motivo === 'acordo') {
+                    // No acordo mútuo, o trabalhador saca até 80% do FGTS depositado + multa
+                    valorSaqueEstimado = (saldoFgts + multaFgts) * 0.8;
+                } else {
+                    valorSaqueEstimado = saldoFgts + multaFgts;
+                }
+            }
+
+            // Exibição dos Resultados na Interface
+            const html = `
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 border-b pb-2">Demonstrativo de Verbas Rescisórias</h3>
+                    
+                    <div class="space-y-2">
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">1. Recebimentos (Proventos)</div>
+                        <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">Saldo de Salário (${diasTrabalhados} dias):</span> <span class="font-medium text-slate-800">${formatBRL(saldoSalario)}</span></div>
+                        
+                        ${avisoPrevioRecebido > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">Aviso Prévio Indenizado (${diasAvisoPrevio} dias):</span> <span class="font-medium text-slate-800">${formatBRL(avisoPrevioRecebido)}</span></div>
+                        ` : ''}
+                        
+                        ${valor13Proporcional > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">13º Salário Proporcional (${meses13}/12 avos):</span> <span class="font-medium text-slate-800">${formatBRL(valor13Proporcional)}</span></div>
+                        ` : ''}
+
+                        ${feriasProporcionais > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">Férias Proporcionais (${mesesFeriasProporcionais}/12 avos):</span> <span class="font-medium text-slate-800">${formatBRL(feriasProporcionais)}</span></div>
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">1/3 Constitucional s/ Férias Proporcionais:</span> <span class="font-medium text-slate-800">${formatBRL(terçoFeriasProporcionais)}</span></div>
+                        ` : ''}
+
+                        ${feriasVencidas > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">Férias Vencidas (${feriasVencidasPeriodos} período):</span> <span class="font-medium text-slate-800">${formatBRL(feriasVencidas)}</span></div>
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">1/3 Constitucional s/ Férias Vencidas:</span> <span class="font-medium text-slate-800">${formatBRL(terçoFeriasVencidas)}</span></div>
+                        ` : ''}
+
+                        <div class="flex justify-between text-sm font-semibold text-emerald-600 pt-1"><span>Total Proventos:</span> <span>${formatBRL(totalProventos)}</span></div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">2. Deduções (Descontos)</div>
+                        <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">INSS sobre Saldo de Salário:</span> <span class="text-red-500 font-medium">- ${formatBRL(inssSaldo)}</span></div>
+                        ${irrfSaldo > 0 ? `<div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">IRRF sobre Saldo de Salário:</span> <span class="text-red-500 font-medium">- ${formatBRL(irrfSaldo)}</span></div>` : ''}
+                        
+                        ${valor13Proporcional > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">INSS sobre 13º Salário:</span> <span class="text-red-500 font-medium">- ${formatBRL(inss13)}</span></div>
+                            ${irrf13 > 0 ? `<div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">IRRF sobre 13º Salário:</span> <span class="text-red-500 font-medium">- ${formatBRL(irrf13)}</span></div>` : ''}
+                        ` : ''}
+
+                        ${avisoPrevioDescontado > 0 ? `
+                            <div class="flex justify-between text-sm border-b pb-1"><span class="text-slate-600">Desconto de Aviso Prévio Não Cumprido:</span> <span class="text-red-500 font-medium">- ${formatBRL(avisoPrevioDescontado)}</span></div>
+                        ` : ''}
+
+                        <div class="flex justify-between text-sm font-semibold text-red-500 pt-1"><span>Total Descontos:</span> <span>- ${formatBRL(totalDescontos)}</span></div>
+                    </div>
+
+                    <div class="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                        <div class="flex justify-between text-lg font-bold text-slate-800">
+                            <span>Total Líquido a Receber:</span>
+                            <span class="text-emerald-600">${formatBRL(totalLiquido)}</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Este é o valor líquido real a ser transferido pelo empregador para sua conta corrente bancária.</p>
+                    </div>
+
+                    ${saqueLiberado ? `
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mt-2 space-y-2">
+                            <div class="text-xs font-semibold text-blue-500 uppercase tracking-wide">Fundo de Garantia (FGTS)</div>
+                            <div class="flex justify-between text-sm"><span class="text-slate-600">Multa Rescisória (${taxaMulta * 100}% s/ FGTS):</span> <span class="font-bold text-blue-700">${formatBRL(multaFgts)}</span></div>
+                            <div class="flex justify-between text-sm border-t pt-2 font-bold text-slate-800">
+                                <span>Saque Estimado Disponível:</span>
+                                <span class="text-blue-600">${formatBRL(valorSaqueEstimado)}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">*O valor liberado para saque inclui o saldo informado + a multa rescisória depositada pela empresa${motivo === 'acordo' ? ' (limitado a 80% do montante no acordo comum)' : ''}.</p>
+                        </div>
+                    ` : `
+                        <div class="p-4 bg-slate-100 rounded-lg border border-slate-200 mt-2">
+                            <p class="text-xs text-slate-600 font-medium">⚠️ Pelo motivo de <strong>${document.getElementById('res-motivo').selectedOptions[0].text}</strong>, o saldo de FGTS permanece retido e você não tem direito à multa rescisória.</p>
+                        </div>
+                    `}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+
+        // Configuração inicial quando a página carregar
+        window.onload = function() {
+            atualizarOpcoesAviso();
+            estimarFgts();
+            updateTabScrollButtons();
         }
     </script>
 </body>
